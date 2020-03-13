@@ -189,6 +189,8 @@ type Backend struct {
 	Host []string `mapstructure:"host"`
 	// False if the hostname should be sanitized
 	HostSanitizationDisabled bool `mapstructure:"disable_host_sanitize"`
+	// true if the client should not check the certificate from the backend system
+	InsecureSkipVerify bool `mapstructure:"insecure_skip_verify"`
 	// URL pattern to use to locate the resource to be consumed
 	URLPattern string `mapstructure:"url_pattern"`
 	// set of response fields to remove. If empty, the filter id not used

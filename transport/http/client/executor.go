@@ -2,6 +2,7 @@ package client
 
 import (
 	"context"
+	"crypto/tls"
 	"net/http"
 )
 
@@ -19,6 +20,17 @@ func DefaultHTTPRequestExecutor(clientFactory HTTPClientFactory) HTTPRequestExec
 type HTTPClientFactory func(ctx context.Context) *http.Client
 
 // NewHTTPClient just returns the http default client
-func NewHTTPClient(ctx context.Context) *http.Client { return defaultHTTPClient }
+func NewHTTPClient(ctx context.Context) *http.Client {
+	return defaultHTTPClient
+}
+
+// NewHTTPClient just returns the http default client
+func NewInsecureHTTPClient(ctx context.Context) *http.Client {
+	return defaultInsecureHTTPClient
+}
 
 var defaultHTTPClient = &http.Client{}
+var tr = &http.Transport{
+	TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+}
+var defaultInsecureHTTPClient = &http.Client{Transport: tr}
